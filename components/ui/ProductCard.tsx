@@ -1,3 +1,4 @@
+import { colors } from "@/constants";
 import { IProduct } from "@/interfaces/productType";
 import { trimText } from "@/utils";
 import { Link, useRouter } from "expo-router";
@@ -25,15 +26,15 @@ export function ProductCard({ index, product }: IProductCard): JSX.Element {
       <View>
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: product.images[0] }}
+            source={{ uri: product.thumbnail }}
             resizeMode="cover"
             style={styles.image}
           />
         </View>
         <View>
           <Text style={styles.title}>{trimText(product.title)}</Text>
-          <Text>{product.category.name}</Text>
-          <Text>${product.price}</Text>
+          <Text>{product.category}</Text>
+          <Text>${product.price} <Text style={{color: colors.gray, fontSize: 10}}>-{product.discountPercentage}%</Text></Text>
         </View>
       </View>
     </Pressable>

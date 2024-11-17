@@ -8,6 +8,7 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Toaster } from 'sonner-native';
 import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -32,10 +33,12 @@ export default function RootLayout() {
 
   return (
     <>
+    <GestureHandlerRootView style={{flex: 1}}>
     <QueryClientProvider client={queryClient}>
       <Stack screenOptions={{ headerShown: false }} />
     </QueryClientProvider>
     <Toaster />
+    </GestureHandlerRootView>
     </>
   );
 }

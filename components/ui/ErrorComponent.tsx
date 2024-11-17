@@ -17,7 +17,7 @@ export const ErrorComponent = ({onRefresh}: Props): JSX.Element => {
                 fontWeight: "bold"
             }}
             >Something went wrong</Text>
-            <CustomButton buttonTitle="Retry" onPress={onRefresh} />
+            <CustomButton style={{paddingHorizontal: 20, backgroundColor: "white", borderWidth: 2, borderColor: "black"}} buttonTitle="Retry" onPress={onRefresh} />
         </View>
     );
 }

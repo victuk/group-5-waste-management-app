@@ -1,11 +1,21 @@
 import { colors } from "@/constants";
 import { useCartStore } from "@/store/cartStore";
 import { AntDesign } from "@expo/vector-icons";
+import { usePathname, useRouter } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export const CartIcon = () => {
+
+    const router = useRouter();
+
+    const pathname = usePathname()
+
     const cartItemLength = useCartStore((state) => state.items.length);
-    const onPress = () => {}
+    const onPress = () => {
+        if(pathname != "/cart") {
+            router.push("/cart" as any);
+        }
+    }
     return (
         <Pressable
             onPress={onPress}

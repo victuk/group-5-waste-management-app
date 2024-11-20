@@ -34,13 +34,17 @@ export default function Singleproduct() {
     (state) => state.items.find((i) => i.id == id)?.quantity || 0
   );
 
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const { data, isLoading, isError, refetch } = useGetProductById(id as number);
 
   const [image, setImage] = useState(data?.images[0]);
 
-  // navigation.setOptions({ title: data?.title });
+
+  // useEffect(() => {
+  //   navigation.setOptions({ title: data?.title ? (data?.title.length < 20 ? data?.title : data?.title.slice(0, 20) + "...") : "Loading..." });
+  // }, [navigation]);
+
 
 
 

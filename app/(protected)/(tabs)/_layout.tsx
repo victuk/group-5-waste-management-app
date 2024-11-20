@@ -1,4 +1,4 @@
-import { CartIcon } from "@/components/CartIcon";
+import { CartIcon } from "@/components/CartCOmponents/CartIcon";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { TabIcon } from "@/components/TabIcon";
 import { colors } from "@/constants";

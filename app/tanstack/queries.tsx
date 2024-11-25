@@ -1,3 +1,4 @@
+import { baseUrl } from "@/baseUrl";
 import { IProduct, ProductPaginated } from "@/interfaces/productType";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -7,7 +8,6 @@ export const useGetAllProducts = () => {
         queryKey: ["products"],
         queryFn: async () => {
             const res = await axios.get("https://dummyjson.com/products");
-            console.log("Products", res.data);
             return res.data as ProductPaginated;
         }
     })
@@ -33,3 +33,29 @@ export const useSimilarProducts = (category: string, limit: number) => {
         }
     })
 }
+
+export const useLogin = async (email: string, password: string) => {
+    const {status, data} = await axios.post(baseUrl + "v1/auth/log-in", {
+      email, password
+    }, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    return {
+      status, data
+    };
+  }
+  
+  export const useRegister = async (firstName: string, lastName: string, email: string, password: string) => {
+    const {status, data} = await axios.post(baseUrl + "v1/auth/sample-register", {
+      firstName, lastName, email, password
+    }, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    return {
+      status, data
+    };
+  }

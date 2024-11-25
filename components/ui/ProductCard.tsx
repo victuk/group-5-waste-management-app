@@ -1,24 +1,46 @@
 import { colors } from "@/constants";
 import { IProduct } from "@/interfaces/productType";
+import { useFavouriteStoreStore } from "@/store/favouriteStore";
 import { trimText } from "@/utils";
+import { AntDesign } from "@expo/vector-icons";
 import { Link, useRouter } from "expo-router";
-import React from "react";
+import React, { useMemo } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 interface IProductCard {
   index: number;
   product: IProduct;
+  width?: number;
+  height?: number;
 }
 
-export function ProductCard({ index, product }: IProductCard): JSX.Element {
+export function ProductCard({ index = 0, product, width, height }: IProductCard): JSX.Element {
   const router = useRouter();
+
+  const allFavourites = useFavouriteStoreStore(state => state.favourites);
+
+  const addToFavourite = useFavouriteStoreStore(state => state.addOrRemoveFavoutite);
+
+  const favouriteIcon = useFavouriteStoreStore(state => state.isInFavourite);
+
+  type IconTypes = "heart" | "hearto";
+
+  const icon  = useMemo(() => {
+    return favouriteIcon(product.id);
+  }, [allFavourites, product.id]);
 
   return (
     <Pressable
-    style={[
-        styles.card,
-        { marginLeft: index % 1 === 0 ? 10 : 0, marginBottom: 15 },
-      ]}
+    style={({ pressed }) => [
+      styles.card,
+      {
+        marginHorizontal: index % 1 === 0 ? 10 : 0,
+        // marginBottom: 20,
+        opacity: pressed ? 0.5 : 1,
+        width,
+        height: height ? height : 400,
+      },
+    ]}
       onPress={() => {
         router.push({ pathname: `/singleproduct/${product.id}` as any });
       }}
@@ -32,7 +54,19 @@ export function ProductCard({ index, product }: IProductCard): JSX.Element {
           />
         </View>
         <View>
-          <Text style={styles.title}>{trimText(product.title)}</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: "center" }}>
+          <Text style={styles.title}>{trimText(product.title, 9)}</Text>
+          <Pressable style={{padding: 2}} onPress={() => {addToFavourite({
+            id: product.id,
+            brand: product.brand,
+            img: product.thumbnail,
+            price: product.price,
+            stock: product.stock,
+            title: product.title
+          });}}>
+            <AntDesign name={icon as IconTypes} size={25} />
+          </Pressable>
+        </View>
           <Text>{product.category}</Text>
           <Text>${product.price} <Text style={{color: colors.gray, fontSize: 10}}>-{product.discountPercentage}%</Text></Text>
         </View>
@@ -43,23 +77,23 @@ export function ProductCard({ index, product }: IProductCard): JSX.Element {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     flex: 1,
-    elevation: 6,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 2,
-    borderRadius: 5,
     height: 240,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "gray",
+    // elevation: 6,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 2,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 2,
+    // borderRadius: 5,
+
+    // borderWidth: StyleSheet.hairlineWidth,
+    // borderColor: 'gray',
     paddingHorizontal: 10,
     paddingVertical: 10,
-    paddingBottom: 20,
   },
   imageContainer: {
     width: "100%",

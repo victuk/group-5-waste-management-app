@@ -1,4 +1,4 @@
-import { View, Text, StyleProp, ViewStyle, Pressable, StyleSheet } from 'react-native'
+import { View, Text, StyleProp, ViewStyle, Pressable, StyleSheet, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { colors } from '@/constants';
 
@@ -9,20 +9,24 @@ type Props = {
     style?: StyleProp<ViewStyle>;
     color?: string;
     icon?: JSX.Element;
+    isLoading?: boolean;
 }
 
 
-export const CustomButton = ({buttonTitle, onPress, disabled, style, color, icon}: Props) =>{
+export const CustomButton = ({buttonTitle, onPress, disabled, style, color, icon, isLoading}: Props) =>{
   return (
     <Pressable
-    disabled={disabled}
+    disabled={disabled || isLoading}
     onPress={onPress}
     style={({ pressed}) =>[
         styles.pressable,
         { opacity:pressed || disabled ? 0.5 : 1 },
         style,
     ]}>
-        <Text style={[styles.title, {color, alignItems: "center"}]}>{buttonTitle} {icon && icon}</Text>
+        {
+            isLoading ? <ActivityIndicator size={20} color={"#000000"} /> : <Text style={[styles.title, {color, alignItems: "center"}]}>{buttonTitle} {icon && icon}</Text>
+        }
+        
     </Pressable>
   )
 }

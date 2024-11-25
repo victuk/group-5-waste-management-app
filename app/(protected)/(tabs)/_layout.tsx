@@ -32,17 +32,10 @@ TabsLayout() {
                 }}
             />
             <Tabs.Screen
-                name="menu"
+                name="favourite"
                 options={{
-                    title: "Menu",
-                    tabBarIcon: ({focused, size}) => <TabIcon name="bars" focused={focused} size={size} />
-                }}
-            />
-            <Tabs.Screen
-                name="more"
-                options={{
-                    title: "More",
-                    tabBarIcon: ({focused, size}) => <TabIcon name="amazon" focused={focused} size={size} />
+                    title: "Favourite",
+                    tabBarIcon: ({focused, size}) => <TabIcon name="hearto" focused={focused} size={size} />
                 }}
             />
             <Tabs.Screen

@@ -15,6 +15,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
   View,
 } from "react-native";
 
@@ -22,7 +23,6 @@ import { IProduct, IReview } from "@/interfaces/productType";
 import moment from "moment";
 import { trimText } from "@/utils";
 import { useCartStore } from "@/store/cartStore";
-import { toast } from "sonner-native";
 
 export default function Singleproduct() {
   const { id }: { id?: number } = useLocalSearchParams();
@@ -69,17 +69,19 @@ export default function Singleproduct() {
       quantity: 1,
       title: data!!.title,
       img: data!!.thumbnail,
+      brand: data!!.brand,
+      stock: data!!.stock
     });
-    toast.success("Added");
+    ToastAndroid.show("Added", ToastAndroid.SHORT);
   };
 
   const removeFromCart = () => {
     removeFromCartUsingStore(data!!.id);
-    toast.success("Removed");
+    ToastAndroid.show("Removed", ToastAndroid.SHORT);
   };
 
-  console.log("product id", id);
-  console.log(data);
+  // console.log("product id", id);
+  // console.log(data);
 
   return (
     <Wrapper>

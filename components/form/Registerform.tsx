@@ -14,11 +14,18 @@ import CustomButton from "../ui/CustomButton";
 import { validateEmail, validatePassword } from "@/utils";
 import { Link, Redirect, useRouter } from "expo-router";
 import { useRegister } from "@/app/tanstack/queries";
+import { Country, State, City } from "country-state-city";
+import { Picker } from "@react-native-picker/picker";
+import { ThemedText } from "../ThemedText";
 
 export const Registerform = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
   const [password, setPassword] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
@@ -36,7 +43,6 @@ export const Registerform = () => {
   };
   const handleSubmit = async () => {
     try {
-
       setRegisterButtonLoading(true);
 
       Keyboard.dismiss();
@@ -50,20 +56,18 @@ export const Registerform = () => {
       //   );
       //   return;
       // }
-  
-      const {data} = await useRegister(firstName, lastName, email, password);
-  
+
+      const { data } = await useRegister(firstName, lastName, email, password);
+
       ToastAndroid.show("Registration Successful", ToastAndroid.SHORT);
 
-      
-  
       // console.log(data);
-  
+
       // console.log({
       //   email,
       //   password,
       // });
-  
+
       setFirstName("");
       setLastName("");
       setEmail("");
@@ -72,14 +76,12 @@ export const Registerform = () => {
       setErrorPassword("");
 
       router.push("/login");
-
     } catch (error: any) {
       console.log(error);
       ToastAndroid.show(error.response.data.errorMessage, ToastAndroid.SHORT);
     } finally {
       setRegisterButtonLoading(false);
     }
-    
   };
 
   const disabled =
@@ -120,6 +122,55 @@ export const Registerform = () => {
             onChangeText={handleEmailChange}
             error={errorEmail}
           />
+
+          <View>
+            <Text style={[{ fontSize: 14, marginBottom: 10, fontWeight: "bold" }]}>
+              Country
+            </Text>
+            <Picker
+              selectedValue={country}
+              onValueChange={(itemValue) => setCountry(itemValue)}
+              style={{ color: "black", backgroundColor: "white" }}
+            >
+              <Picker.Item value="" label="Select" key={0} />
+              {Country.getAllCountries().map((s, index) => (
+                <Picker.Item value={s.isoCode} label={s.name} key={index + 1} />
+              ))}
+            </Picker>
+          </View>
+
+          <View>
+            <Text style={[{ fontSize: 14, marginBottom: 10, fontWeight: "bold" }]}>
+              State
+            </Text>
+            <Picker
+              selectedValue={state}
+              onValueChange={(itemValue) => setState(itemValue)}
+              style={{ color: "black", backgroundColor: "white" }}
+            >
+              <Picker.Item value="" label="Select" key={0} />
+              {State.getStatesOfCountry(country).map((s, index) => (
+                <Picker.Item value={s.isoCode} label={s.name} key={index + 1} />
+              ))}
+            </Picker>
+          </View>
+
+          <View>
+            <Text style={[{ fontSize: 14, marginBottom: 10, fontWeight: "bold" }]}>
+              City
+            </Text>
+            <Picker
+              selectedValue={city}
+              onValueChange={(itemValue) => setCity(itemValue)}
+              style={{ color: "black", backgroundColor: "white" }}
+            >
+              <Picker.Item value="" label="Select" key={0} />
+              {City.getCitiesOfState(country, state).map((s, index) => (
+                <Picker.Item value={s.stateCode} label={s.name} key={index + 1} />
+              ))}
+            </Picker>
+          </View>
+
           <CustomInput
             label="Password"
             placeholder="Enter your password"
@@ -133,14 +184,14 @@ export const Registerform = () => {
           />
 
           <CustomButton
-          isLoading={registerButtonLoading}
+            isLoading={registerButtonLoading}
             disabled={disabled}
             buttonTitle="Register"
             onPress={handleSubmit}
           />
 
           <View>
-            <Link href="/login" style={{marginTop: -60}}>Already have an account? Login</Link>
+            <Link href="/login">Already have an account? Login</Link>
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -150,7 +201,7 @@ export const Registerform = () => {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 80,
-    marginTop: 20,
+    gap: 20,
+    marginVertical: 20,
   },
 });

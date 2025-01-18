@@ -6,9 +6,15 @@ export default function ProtectedLayout() {
 
     const user = useUserStore((state) => state.user);
 
-    if(!user?.token) {
-        return <Redirect href={"/login"} />
+    const isOnboarded = useUserStore((state) => state.isOnboarded);
+
+    if(!isOnboarded) {
+      return <Redirect href={"/onboardscreen"} />
     }
+
+    // if(!user?.token) {
+    //     return <Redirect href={"/login"} />
+    // }
 
   return (
     <Stack screenOptions={{

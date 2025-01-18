@@ -11,8 +11,10 @@ type User = {
   
   type UserStore = {
     user: User | null,
+    isOnboarded: boolean,
     createUser: (user: User) => void;
     removeUser: () => void;
+    setOnboard: (val: boolean) => void;
     getUser: () => User | null;
   }
   
@@ -20,10 +22,15 @@ type User = {
     persist(
       (set, get) => ({
         user: null,
+        isOnboarded: false,
         createUser: (newUser) =>
           set((_state) => {
             return { user: newUser };
           }),
+          setOnboard: (isOnboarded) =>
+            set((_state) => {
+              return { isOnboarded };
+            }),
         removeUser: () =>
           set((_state) => {
             

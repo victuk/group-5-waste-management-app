@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "e-commerce",
-    "slug": "e-commerce",
+    "name": "zero-waste",
+    "slug": "zero-waste",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/0412471953942fa1d5465b709fef3d64.png",
     "scheme": "myapp",
+    "newArchEnabled": true,
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/0412471953942fa1d5465b709fef3d64.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +18,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/0412471953942fa1d5465b709fef3d64.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.victuk.ecommerce"
@@ -25,10 +26,11 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/0412471953942fa1d5465b709fef3d64.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true

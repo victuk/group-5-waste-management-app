@@ -9,17 +9,9 @@ const FavouritePage = () => {
     const favouriteItems = useFavouriteStoreStore(state => state.favourites);
   
     return (
-      <Wrapper>
-        <FlatList
-          data={favouriteItems}
-          style={{marginVertical: 20}}
-          renderItem={({item}) => <FavouriteItem item={item} />}
-          ListEmptyComponent={() => <View style={styles.noProductContainer}>
-            <AntDesign name='shoppingcart' size={50} />
-            <Text style={{fontWeight: "bold", fontSize: 20}}>No product in favourite</Text>
-          </View>}
-        />
-      </Wrapper>
+      <View style={{flex: 1}}>
+            <Text>Price List</Text>
+        </View>
     );
   };
 

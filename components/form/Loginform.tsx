@@ -13,7 +13,7 @@ import CustomInput from "./CustomInput";
 import CustomButton from "../ui/CustomButton";
 
 import { validateEmail, validatePassword } from "@/utils";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import Wrapper from "../ui/Wrapper";
 import { useLogin } from "@/app/tanstack/queries";
 import { useUserStore } from "@/store/authStore";
@@ -106,12 +106,13 @@ export const Loginform = () => {
 
           <CustomButton
             isLoading={loginButtonLoading}
-            disabled={disabled}
+            // disabled={disabled}
             buttonTitle="Sign in"
-            onPress={handleSubmit}
+            onPress={() => {router.push("/");}}
+            // onPress={handleSubmit}
           />
 
-          <Link href="/register" style={{marginTop: -60}}>Don't have an account? Register</Link>
+          <Link href="/register">Don't have an account? Register</Link>
         </View>
       </KeyboardAvoidingView>
     </View>
@@ -120,7 +121,7 @@ export const Loginform = () => {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 80,
-    // marginTop: 20,
+    gap: 20,
+    marginVertical: 20
   },
 });

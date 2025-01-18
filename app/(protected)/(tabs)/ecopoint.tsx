@@ -9,14 +9,9 @@ const account = () => {
     const removeUser = useUserStore(state => state.removeUser);
 
     return (
-        <View style={{padding: 10}}>
-            <View style={{justifyContent: "center", alignItems: "center", gap: 10, paddingTop: 40, padding: 20, backgroundColor: "white"}}>
-            <Image source={require('../../../assets/avatar.png')} style={{borderRadius: 50, height: 100, width: 100}} />
-                <Text>{user?.fullName}</Text>
-                <Text>{user?.email}</Text>
-            <Pressable onPress={removeUser} style={styles.logoutButton}><Text style={styles.logoutTextButton}>Log Out</Text></Pressable>
-            </View>
-        </View>
+      <View style={{flex: 1}}>
+      <Text>Eco Point</Text>
+  </View>
     )
 }
 
